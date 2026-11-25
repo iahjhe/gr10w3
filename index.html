@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Combination of Objects</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{font-family:system-ui,Segoe UI,Arial,sans-serif;background:#0f172a;color:#e2e8f0;height:100vh;overflow:hidden}
+#bar{position:fixed;top:0;left:0;height:5px;background:linear-gradient(90deg,#38bdf8,#a78bfa);transition:width .3s;z-index:9}
+.slide{position:absolute;inset:0;padding:5vh 7vw 11vh;display:none;flex-direction:column;justify-content:center;overflow:auto;animation:in .4s}
+.slide.on{display:flex}
+@keyframes in{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+h1{font-size:clamp(2rem,6vw,3.6rem);background:linear-gradient(90deg,#38bdf8,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:.4em}
+h2{font-size:clamp(1.5rem,4vw,2.4rem);color:#38bdf8;margin-bottom:.5em}
+p,li{font-size:clamp(1rem,2.2vw,1.35rem);line-height:1.55;margin-bottom:.5em}
+ul{padding-left:1.2em}
+.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:16px 20px;margin:8px 0}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.f{font-size:clamp(1.3rem,3.5vw,2.2rem);text-align:center;font-family:Georgia,serif;color:#fbbf24;padding:14px}
+.hl{color:#34d399;font-weight:700}.warn{color:#fb7185;font-weight:700}
+.chip{display:inline-block;padding:4px 10px;margin:3px;border-radius:8px;background:#334155;font-weight:700;font-family:monospace}
+.chip.g{background:#14532d}.chip.b{background:#1e3a8a}
+code{font-family:monospace;color:#fbbf24}
+.step{opacity:0;transform:translateY(10px);transition:.4s}.step.show{opacity:1;transform:none}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:8px 16px;background:#38bdf8;color:#0f172a;font-weight:700}
+input{font:inherit;width:70px;padding:6px;border-radius:8px;border:1px solid #475569;background:#0f172a;color:#fff}
+#nav{position:fixed;bottom:2vh;left:0;right:0;display:flex;justify-content:center;gap:14px;align-items:center;z-index:9}
+#nav button{background:#334155;color:#fff}#cnt{min-width:60px;text-align:center}
+.q{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid #334155;font-size:clamp(.95rem,2vw,1.15rem)}
+.q button{background:#334155;color:#fff;padding:6px 12px;margin-left:4px}
+.q .ok{background:#16a34a}.q .no{background:#dc2626}
+small{display:block;color:#94a3b8;margin-top:4px}
+</style></head><body>
+<div id="bar"></div>
+
+<section class="slide on">
+<h1>Combination of Objects</h1>
+<p>Choosing items <span class="hl">without caring about order</span>.</p>
+<div class="card"><p>You will learn: what a combination is · how to use <code>nCr</code> · how it differs from a permutation · how to solve word problems.</p></div>
+<small>Use ← → keys, the buttons below, or swipe.</small>
+</section>
+
+<section class="slide">
+<h2>What is a Combination?</h2>
+<p>A <b>combination</b> is a selection from a group of items <span class="hl">without regard to their order</span>.</p>
+<div class="card f">nCr = n! / [ r! (n − r)! ]</div>
+<div class="row">
+<div class="card"><b>n</b> = total number of objects in the set</div>
+<div class="card"><b>r</b> = number of objects selected</div>
+<div class="card">Read as “<b>n choose r</b>”. Also written C(n,r) or Cᵣⁿ.</div></div>
+<p><b>Remember:</b> n! (factorial) means n × (n−1) × … × 1. Also, 0! = 1.</p>
+</section>
+
+<section class="slide">
+<h2>Why does order not matter?</h2>
+<p>Players 1, 2, 3: how many teams of two?</p>
+<div class="row">
+<div class="card"><span class="chip g">1-2</span> = <span class="chip g">2-1</span><br><span class="chip g">1-3</span> = <span class="chip g">3-1</span><br><span class="chip g">2-3</span> = <span class="chip g">3-2</span></div>
+<div class="card">Team 1-2 is the <b>same team</b> as 2-1. So we count each team once.<br><br><code>3C2 = 3!/(2!·1!) = 3</code> <span class="hl">teams</span></div></div>
+<p>Same idea: letters B,E,A,U,Y — <b>A-U-B-E</b> and <b>E-A-U-B</b> are one combination.</p>
+</section>
+
+<section class="slide">
+<h2>Permutation vs Combination</h2>
+<p>Take 2 out of 4 boxes: A, B, C, D</p>
+<div class="row">
+<div class="card"><b class="warn">Permutation: 12</b> (order matters)<br>
+<span class="chip b">AB</span><span class="chip b">BA</span><span class="chip b">AC</span><span class="chip b">CA</span><span class="chip b">AD</span><span class="chip b">DA</span><span class="chip b">BC</span><span class="chip b">CB</span><span class="chip b">BD</span><span class="chip b">DB</span><span class="chip b">CD</span><span class="chip b">DC</span></div>
+<div class="card"><b class="hl">Combination: 6</b> (order doesn’t matter)<br>
+<span class="chip g">AB=BA</span><span class="chip g">AC=CA</span><span class="chip g">AD=DA</span><span class="chip g">BC=CB</span><span class="chip g">BD=DB</span><span class="chip g">CD=DC</span></div></div>
+<p>Each combination is counted <b>r!</b> times in permutations, so <code>nCr = nPr ÷ r!</code> → 12 ÷ 2 = 6.</p>
+<p><b>Lock code</b> 1-2-3 ≠ 3-2-1 (permutation). <b>Pizza toppings</b> or <b>committee members</b> (combination).</p>
+</section>
+
+<section class="slide">
+<h2>Evaluating nCr: Step by Step</h2>
+<div class="card step show"><b>Example:</b> 8C4 → n = 8, r = 4</div>
+<div class="card step"><code>8C4 = 8! / [4!(8−4)!] = 8! / (4!·4!)</code></div>
+<div class="card step"><code>= (8·7·6·5·4!) / (4!·4!) = (8·7·6·5) / (4·3·2·1)</code> <small>Cancel the biggest factorial first!</small></div>
+<div class="card step"><code>= 1680 / 24 = <span class="hl">70</span></code></div>
+<button onclick="reveal(this)">Show next step</button>
+<small>More: 5C2 = 10 · 3C3 = 1 · 10C3 = 120 · 7C4 = 35</small>
+</section>
+
+<section class="slide">
+<h2>Try It: nCr Calculator</h2>
+<div class="card">n = <input id="n" type="number" value="10" min="0"> &nbsp; r = <input id="r" type="number" value="3" min="0"> &nbsp; <button onclick="calc()">Compute</button></div>
+<div class="card" id="out"><p>Press Compute.</p></div>
+<small>Shortcuts: nC0 = 1 · nCn = 1 · nCr = nC(n−r)</small>
+</section>
+
+<section class="slide">
+<h2>Word Problem: Choosing from One Group</h2>
+<p><b>How many ways can 3 blouses be chosen from 10 blouses?</b></p>
+<div class="card"><code>10C3 = 10!/[3!·7!] = (10·9·8)/(3·2·1) = 720/6 = <span class="hl">120</span></code></div>
+<p><b>Why combination?</b> Picking blouses A, B, C is the same as C, B, A.</p>
+<p><b>Check yourself:</b> 12C9 = 12C3 = <span class="hl">220</span> (using nCr = nC(n−r))</p>
+</section>
+
+<section class="slide">
+<h2>Choosing from Several Groups</h2>
+<p>A basket: 4 star apples, 5 mangoes, 8 guavas. Choose 2 apples, 1 mango, 2 guavas.</p>
+<div class="card">Use the <b>Fundamental Counting Principle</b>: <b>multiply</b> the combinations of each group.</div>
+<div class="card"><code>4C2 · 5C1 · 8C2 = 6 · 5 · 28 = <span class="hl">840 ways</span></code></div>
+<p>Committee: 4 men from 12 and 4 women from 9:<br><code>12C4 · 9C4 = 495 · 126 = <span class="hl">62,370</span></code></p>
+</section>
+
+<section class="slide">
+<h2>“At Least” Problems</h2>
+<p>Committee of 3 from 6 women and 5 men, with <b>at least 2 women</b>.</p>
+<div class="card"><b>Split into cases, then add:</b><br>
+2 women, 1 man: 6C2 · 5C1 = 15 · 5 = 75<br>
+3 women, 0 men: 6C3 · 5C0 = 20 · 1 = 20</div>
+<div class="card f">75 + 20 = <span class="hl">95 committees</span></div>
+<p><b>Tip:</b> “and” → multiply · “or” (different cases) → add.</p>
+</section>
+
+<section class="slide">
+<h2>Quick Check: P or C?</h2>
+<div id="quiz"></div><p id="score" class="hl"></p>
+</section>
+
+<section class="slide">
+<h2>Summary</h2>
+<ul>
+<li><b>Combination</b>: order does <b>not</b> matter. <b>Permutation</b>: order matters.</li>
+<li>Formula: <code>nCr = n! / [r!(n−r)!]</code></li>
+<li>Multiple groups → <b>multiply</b>; separate cases → <b>add</b>.</li>
+<li>Ask: “If I rearrange the chosen items, is it a different result?” Yes → permutation. No → combination.</li></ul>
+<div class="card f">Great job! 🎉</div>
+</section>
+
+<div id="nav"><button onclick="go(-1)">◀ Prev</button><span id="cnt"></span><button onclick="go(1)">Next ▶</button></div>
+<script>
+const S=[...document.querySelectorAll('.slide')];let i=0;
+function show(){S.forEach((s,k)=>s.classList.toggle('on',k==i));
+document.getElementById('bar').style.width=(i+1)/S.length*100+'%';
+document.getElementById('cnt').textContent=(i+1)+' / '+S.length}
+function go(d){i=Math.max(0,Math.min(S.length-1,i+d));show()}
+addEventListener('keydown',e=>{if(e.key=='ArrowRight'||e.key==' ')go(1);if(e.key=='ArrowLeft')go(-1)});
+let x0;addEventListener('touchstart',e=>x0=e.touches[0].clientX);
+addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>60)go(d<0?1:-1)});
+function reveal(b){const h=b.parentNode.querySelector('.step:not(.show)');if(h)h.classList.add('show');else b.textContent='All steps shown ✓'}
+function calc(){const n=+document.getElementById('n').value,r=+document.getElementById('r').value,o=document.getElementById('out');
+if(!Number.isInteger(n)||!Number.isInteger(r)||n<0||r<0||r>n||n>60){o.innerHTML='<p class="warn">Use whole numbers, 0 ≤ r ≤ n ≤ 60.</p>';return}
+let k=Math.min(r,n-r),res=1n;for(let j=1;j<=k;j++)res=res*BigInt(n-k+j)/BigInt(j);
+o.innerHTML=`<p><code>${n}C${r} = ${n}! / (${r}!·${n-r}!)</code></p><p class="f" style="padding:4px">= <span class="hl">${res}</span></p><small>Ordered (permutation) count would be ${res*BigInt([...Array(r)].reduce((a,_,j)=>a*(j+1),1))}</small>`}
+const Q=[["Opening a combination lock","P"],["Winning in a contest (1st, 2nd, 3rd)","P"],["Selecting 7 people for a student council","C"],["Choosing 3 classmates to attend your party","C"],["Entering the PIN of your ATM card","P"],["Selecting 3 posters to hang from 6","C"]];
+let sc=0,done=0;const qz=document.getElementById('quiz');
+Q.forEach(([t,a])=>{const d=document.createElement('div');d.className='q';d.innerHTML=`<span>${t}</span><span><button>Permutation</button><button>Combination</button></span>`;
+const [bp,bc]=d.querySelectorAll('button');
+[[bp,'P'],[bc,'C']].forEach(([b,v])=>b.onclick=()=>{if(d.dataset.d)return;d.dataset.d=1;done++;
+const ok=v==a;if(ok)sc++;b.classList.add(ok?'ok':'no');
+document.getElementById('score').textContent=`Score: ${sc} / ${done}`+(done==Q.length?' — finished!':'')});
+qz.appendChild(d)});
+show();
+</script></body></html>
